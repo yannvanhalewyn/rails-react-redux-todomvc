@@ -19,12 +19,19 @@ try {
 var storeCallback = (state, action) => {
   console.log("action", action);
   switch (action.type) {
+    case Constants.ADD_TODO:
+      var newId = Math.floor((Math.random() * 100));
+      state.push({title: action.text, completed: false, id: newId});
+      console.log(state);
+      return state;
+
     case Constants.TOGGLE:
       for (var todo of state) {
         if (todo.id == action.id) {
           todo.completed = !todo.completed;
         }
       }
+      return state;
 
     default:
       return state;
