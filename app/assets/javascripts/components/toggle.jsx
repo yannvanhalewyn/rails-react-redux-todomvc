@@ -3,7 +3,11 @@ import { actions } from '../store';
 
 export default class Toggle extends React.Component {
   render() {
-    return <input onChange={this._onClick.bind(this)} type="checkbox" />
+    return <input
+      className="toggle"
+      type="checkbox"
+      onChange={this._onClick.bind(this)}
+    />
   }
 
   _onClick() {
