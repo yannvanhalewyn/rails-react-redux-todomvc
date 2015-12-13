@@ -14,3 +14,20 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+$(document).ready(function() {
+  $('#lala').on('click', function() {
+    $.post('/api/todos', {title: "fo0"}, function(res) {
+      console.log("success: ", res);
+    })
+  })
+
+  $('#delete').on('click', function() {
+    $.ajax({
+      url: '/api/todos/3',
+      type: 'DELETE',
+      success: function(e) { console.log("Success: ", e);},
+      error: function(e) { console.log("Error: ", e);}
+    })
+  })
+})
