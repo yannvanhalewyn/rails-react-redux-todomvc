@@ -8,6 +8,7 @@ var countUncompleted = (todos) => {
 
 export default class Footer extends React.Component {
   render() {
+    if (this.props.todos.isEmpty()) return null;
     var uncompletedCount = countUncompleted(this.props.todos);
     return (
       <footer className="footer">

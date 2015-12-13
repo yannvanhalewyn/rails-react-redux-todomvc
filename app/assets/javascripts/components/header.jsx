@@ -1,8 +1,6 @@
 import React from 'react';
+import ToggleAll from './toggleAll.jsx';
 import { actions } from '../store';
-
-var isChecked = (todo) => todo.get('completed');
-var allChecked = (todos) => todos.every(isChecked);
 
 export default class Header extends React.Component {
   render() {
@@ -11,12 +9,7 @@ export default class Header extends React.Component {
         <form onSubmit={this._onSubmit.bind(this)}>
           <input ref="input" className="new-todo" type="" placeholder="What needs to be done?" />
         </form>
-        <input
-          checked={allChecked(this.props.todos)}
-          onChange={this._onToggleAll.bind(this)}
-          className="toggle-all"
-          type="checkbox"
-        />
+        <ToggleAll todos={this.props.todos} />
       </header>
   }
 
@@ -27,8 +20,4 @@ export default class Header extends React.Component {
     actions.add(newText);
   }
 
-  _onToggleAll(e) {
-    var checked = e.target.checked;
-    actions.toggleAll(checked);
-  }
 }
