@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
   def index
-    puts "kakakakaka"
+    @todos = Todo.all
   end
 end
