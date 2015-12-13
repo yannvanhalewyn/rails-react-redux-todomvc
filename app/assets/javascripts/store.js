@@ -4,7 +4,7 @@ import Immutable from 'immutable';
 
 var Constants = KeyMirror({
   ADD_TODO: undefined,
-  REMOVE_TODO: undefined,
+  DESTROY: undefined,
   UPDATE_TODO: undefined,
   TOGGLE: undefined
 });
@@ -28,6 +28,10 @@ var storeCallback = (state, action) => {
       var idx = state.findIndex((t) => t.get('id') == action.id)
       return state.setIn([idx, 'completed'], !state.getIn([idx, 'completed']));
 
+    case Constants.DESTROY:
+      var idx = state.findIndex((t) => t.get('id') == action.id)
+      return state.delete(idx)
+
     default:
       return state;
   }
@@ -36,11 +40,8 @@ var storeCallback = (state, action) => {
 var store = createStore(storeCallback, Immutable.fromJS(initialState));
 
 export const actions = {
-  add: function(text) {
-    store.dispatch({type: Constants.ADD_TODO, text: text})
-  },
-  toggle: function(id) {
-    store.dispatch({type: Constants.TOGGLE, id: id})
-  }
+  add: (text) => store.dispatch({type: Constants.ADD_TODO, text}),
+  toggle: (id) => store.dispatch({type: Constants.TOGGLE, id}),
+  destroy: (id) => store.dispatch({type: Constants.DESTROY, id})
 }
 export default store;
