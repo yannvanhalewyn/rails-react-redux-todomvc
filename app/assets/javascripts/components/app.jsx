@@ -10,7 +10,11 @@ export default class App extends React.Component {
   }
 
   _renderTodo(todo) {
-    return <Todo id={todo.id} title={todo.title} key={todo.id} />
+    return <Todo
+      id={todo.id}
+      title={todo.title}
+      key={todo.id}
+      completed={todo.completed}
+    />
   }
 }
-
