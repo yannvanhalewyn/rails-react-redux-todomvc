@@ -6,7 +6,7 @@ import Footer from './footer.jsx';
 export default class App extends React.Component {
   render() {
     return <div className="todoapp">
-      <Header />
+      <Header todos={this.props.todos} />
       <Todos todos={this.props.todos} />
       <Footer todos={this.props.todos} />
     </div>

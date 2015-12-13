@@ -6,6 +6,7 @@ export default class Toggle extends React.Component {
     return <input
       className="toggle"
       type="checkbox"
+      checked={this.props.checked}
       onChange={this._onClick.bind(this)}
     />
   }
