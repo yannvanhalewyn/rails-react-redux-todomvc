@@ -1,5 +1,6 @@
 import { createStore } from 'redux';
 import KeyMirror from 'keymirror';
+import Immutable from 'immutable';
 
 var Constants = KeyMirror({
   ADD_TODO: undefined,
@@ -17,28 +18,22 @@ try {
 }
 
 var storeCallback = (state, action) => {
-  console.log("action", action);
   switch (action.type) {
     case Constants.ADD_TODO:
       var newId = Math.floor((Math.random() * 100));
-      state.push({title: action.text, completed: false, id: newId});
-      console.log(state);
-      return state;
+      var newTodo = Immutable.Map({title: action.text, completed: false, id: newId})
+      return state.push(newTodo);
 
     case Constants.TOGGLE:
-      for (var todo of state) {
-        if (todo.id == action.id) {
-          todo.completed = !todo.completed;
-        }
-      }
-      return state;
+      var idx = state.findIndex((t) => t.get('id') == action.id)
+      return state.setIn([idx, 'completed'], !state.getIn([idx, 'completed']));
 
     default:
       return state;
   }
 }
 
-var store = createStore(storeCallback, initialState);
+var store = createStore(storeCallback, Immutable.fromJS(initialState));
 
 export const actions = {
   add: function(text) {

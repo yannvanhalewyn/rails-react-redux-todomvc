@@ -3,7 +3,7 @@ import React from 'react'
 var itemOrItems = (n) => n == 1 ? "item" : "items";
 
 var countUncompleted = (todos) => {
-  return todos.filter((t) => !t.completed).length;
+  return todos.filterNot((t) => t.get('completed')).size;
 }
 
 export default class Footer extends React.Component {
