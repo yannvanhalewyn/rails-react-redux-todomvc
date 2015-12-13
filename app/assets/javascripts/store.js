@@ -1,6 +1,7 @@
 import { createStore } from 'redux';
-import KeyMirror from 'keymirror';
-import Immutable from 'immutable';
+import KeyMirror       from 'keymirror';
+import Immutable       from 'immutable';
+import API             from './api';
 
 var Constants = KeyMirror({
   ADD_TODO: undefined,
@@ -21,20 +22,27 @@ try {
 var storeCallback = (state, action) => {
   switch (action.type) {
     case Constants.ADD_TODO:
+      API.create(action.text).then(API.fetch);
       var newId = Math.floor((Math.random() * 100));
       var newTodo = Immutable.Map({title: action.text, completed: false, id: newId})
       return state.push(newTodo);
+      return state;
 
     case Constants.TOGGLE:
       var idx = state.findIndex((t) => t.get('id') == action.id)
       return state.setIn([idx, 'completed'], !state.getIn([idx, 'completed']));
 
     case Constants.DESTROY:
+      API.destroy(action.id);
       var idx = state.findIndex((t) => t.get('id') == action.id)
       return state.delete(idx)
 
     case Constants.TOGGLE_ALL:
       return state.map((t) => t.set('completed', action.checked))
+
+    case 'fetch':
+      return Immutable.fromJS(action.data);
+      break;
 
     default:
       return state;
