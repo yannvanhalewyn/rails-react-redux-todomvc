@@ -1,1 +1,5 @@
-<%= react_component('App', {todos: @todos}) %>
+<div id="content">Loading...</div>
+
+<script id="initial-state" type="application/json">
+  <%= raw @todos.to_json %>
+</script>
