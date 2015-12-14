@@ -12,6 +12,6 @@ export default class Toggle extends React.Component {
   }
 
   _onClick() {
-    actions.toggle(this.props.id);
+    actions.toggle(this.props.idx);
   }
 }

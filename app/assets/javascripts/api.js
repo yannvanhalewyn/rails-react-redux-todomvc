@@ -2,7 +2,7 @@ import store from './store';
 
 export default {
   destroy(id) {
-    $.ajax({url: `api/todos/${id}`, type: 'delete', success: (e) => console.log(e) })
+    return $.ajax({url: `api/todos/${id}`, type: 'delete'});
   },
 
   create(text) {
@@ -10,9 +10,10 @@ export default {
   },
 
   update(id) {
+    return $.ajax({url: `api/todos/${id}`, type: 'put'});
   },
 
   fetch() {
-    return $.ajax({url: 'api/todos'}).then((data) => store.dispatch({type: "fetch", data}))
+    return $.ajax({url: 'api/todos'});
   }
 }

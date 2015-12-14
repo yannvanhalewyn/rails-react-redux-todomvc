@@ -18,6 +18,10 @@ class TodosController < ApplicationController
     render json: @todo
   end
 
+  def update
+    render json: @todo
+  end
+
   def destroy
     if @todo.destroy
       render json: {destroyed: true}

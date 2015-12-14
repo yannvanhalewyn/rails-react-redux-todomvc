@@ -16,8 +16,8 @@ export default class Header extends React.Component {
   _onSubmit(e) {
     e.preventDefault();
     var newText = this.refs.input.value.trim();
+    if (newText.length == 0) return;
     this.refs.input.value = "";
     actions.add(newText);
   }
-
 }

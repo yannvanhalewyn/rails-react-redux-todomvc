@@ -11,11 +11,11 @@ export default class Todos extends React.Component {
     </section>
   }
 
-  _renderTodo(todo) {
+  _renderTodo(todo, idx) {
     return <Todo
-      id={todo.get('id')}
+      idx={idx}
+      key={idx}
       title={todo.get('title')}
-      key={todo.get('id')}
       completed={todo.get('completed')}
     />
   }
