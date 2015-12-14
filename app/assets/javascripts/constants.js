@@ -5,5 +5,8 @@ export default KeyMirror({
   DESTROY: undefined,
   UPDATE_TODO: undefined,
   TOGGLE: undefined,
-  TOGGLE_ALL: undefined
+  TOGGLE_ALL: undefined,
+
+  // Server
+  FETCHED: undefined
 });

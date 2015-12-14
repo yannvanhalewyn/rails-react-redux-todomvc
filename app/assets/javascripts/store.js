@@ -2,6 +2,7 @@ import { createStore } from 'redux';
 import Immutable       from 'immutable';
 import API             from './api';
 import Constants       from './constants';
+import actions         from './actions';
 
 // Load initial state
 var initialTodos = []
@@ -16,7 +17,7 @@ var todosHandler = (todos, action) => {
   switch (action.type) {
     case Constants.ADD_TODO:
       // Will resync once terminated
-      API.create(action.text).then(API.fetch, API.fetch);
+      API.create(action.text).then(actions.fetchAllAndSync, actions.fetchAllAndSync);
 
       // Optimistic update in the meanwhile
       var newTodo = Immutable.Map({title: action.text, completed: false})
@@ -27,13 +28,15 @@ var todosHandler = (todos, action) => {
       return todos.setIn(path, !todos.getIn(path));
 
     case Constants.DESTROY:
-      API.destroy(todos.getIn([action.idx, 'id']))
+      // Will resync if server failed to destroy todo
+      API.destroy(todos.getIn([action.idx, 'id'])).fail(actions.fetchAllAndSync)
+      // Optimistic update
       return todos.delete(action.idx)
 
     case Constants.TOGGLE_ALL:
       return todos.map((t) => t.set('completed', action.checked))
 
-    case 'fetch':
+    case Constants.FETCHED:
       return Immutable.fromJS(action.data)
 
     default:
