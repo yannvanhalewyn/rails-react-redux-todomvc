@@ -12,9 +12,9 @@ var Constants = KeyMirror({
 });
 
 // Load initial state
-var initialState = []
+var initialTodos = []
 try {
-  initialState = JSON.parse(document.getElementById('initial-state').text)
+  initialTodos = JSON.parse(document.getElementById('initial-state').text)
 } catch (e) {
   console.error("Error parsing json initial-state");
 }
@@ -22,34 +22,34 @@ try {
 var storeCallback = (state, action) => {
   switch (action.type) {
     case Constants.ADD_TODO:
-      API.create(action.text).then(API.fetch);
+      // API.create(action.text).then(API.fetch);
       var newId = Math.floor((Math.random() * 100));
       var newTodo = Immutable.Map({title: action.text, completed: false, id: newId})
-      return state.push(newTodo);
-      return state;
+      return state.update('todos', (t) => t.push(newTodo))
 
     case Constants.TOGGLE:
-      var idx = state.findIndex((t) => t.get('id') == action.id)
-      return state.setIn([idx, 'completed'], !state.getIn([idx, 'completed']));
+      var idx = state.get('todos').findIndex((t) => t.get('id') == action.id)
+      var path = ['todos', idx, 'completed']
+      return state.setIn(path, !state.getIn(path));
 
     case Constants.DESTROY:
-      API.destroy(action.id);
-      var idx = state.findIndex((t) => t.get('id') == action.id)
-      return state.delete(idx)
+      // API.destroy(action.id);
+      var idx = state.get('todos').findIndex((t) => t.get('id') == action.id)
+      return state.deleteIn(['todos', idx])
 
     case Constants.TOGGLE_ALL:
-      return state.map((t) => t.set('completed', action.checked))
+      var newTodos = state.get('todos').map((t) => t.set('completed', action.checked))
+      return state.set('todos', newTodos)
 
     case 'fetch':
-      return Immutable.fromJS(action.data);
-      break;
+      return state.set('todos', Immutable.fromJS(action.data))
 
     default:
       return state;
   }
 }
 
-var store = createStore(storeCallback, Immutable.fromJS(initialState));
+var store = createStore(storeCallback, Immutable.fromJS({todos: initialTodos}));
 
 export const actions = {
   add: (text) => store.dispatch({type: Constants.ADD_TODO, text}),

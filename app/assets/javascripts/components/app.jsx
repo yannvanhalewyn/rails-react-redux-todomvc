@@ -5,10 +5,11 @@ import Footer from './footer.jsx';
 
 export default class App extends React.Component {
   render() {
+    let todos = this.props.state.get('todos');
     return <div className="todoapp">
-      <Header todos={this.props.todos} />
-      <Todos todos={this.props.todos} />
-      <Footer todos={this.props.todos} />
+      <Header todos={todos} />
+      <Todos todos={todos} />
+      <Footer todos={todos} />
     </div>
   }
 }
