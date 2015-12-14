@@ -9,6 +9,7 @@ export default {
   toggle: (idx) => store.dispatch({type: ActionTypes.TOGGLE, idx}),
   toggleAll: (checked) => store.dispatch({type: ActionTypes.TOGGLE_ALL, checked}),
   updateTitle: (idx, text) => store.dispatch({type: ActionTypes.UPDATE, idx, text}),
+  clearCompleted: () => store.dispatch({type: ActionTypes.CLEAR_COMPLETED}),
 
   // Server
   fetchAllAndSync: () => {

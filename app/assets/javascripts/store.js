@@ -49,6 +49,13 @@ var todosHandler = (todos, action) => {
         .fail(actions.fetchAllAndSync)
       return todos.setIn([action.idx, 'title'], action.text)
 
+    case ActionTypes.CLEAR_COMPLETED:
+      todos.forEach((t) => {
+        // Delete from server if needed. Will resync on error
+        if (t.get('completed')) API.destroy(t.get('id')).fail(actions.fetchAllAndSync)
+      })
+      return todos.filter((t) => !t.get('completed'))
+
     // Primarily used for when error occured and data is
     // refetched from the server
     case ActionTypes.FETCHED:

@@ -1,5 +1,6 @@
 import React from 'react';
 import Filters from './filters.jsx';
+import actions from '../actions';
 
 var itemOrItems = (n) => n == 1 ? "item" : "items";
 
@@ -17,6 +18,7 @@ export default class Footer extends React.Component {
           {uncompletedCount} {itemOrItems(uncompletedCount)} left
         </span>
         <Filters filterType={this.props.filterType}/>
+        <button className="clear-completed" onClick={actions.clearCompleted}>Clear Completed</button>
       </footer>
     )
   }

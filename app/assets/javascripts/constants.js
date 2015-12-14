@@ -6,6 +6,7 @@ export const ActionTypes = KeyMirror({
   UPDATE: undefined,
   TOGGLE: undefined,
   TOGGLE_ALL: undefined,
+  CLEAR_COMPLETED: undefined,
 
   // Server
   FETCHED: undefined,
