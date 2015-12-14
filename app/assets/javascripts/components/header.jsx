@@ -1,6 +1,6 @@
 import React from 'react';
 import ToggleAll from './toggleAll.jsx';
-import { actions } from '../store';
+import actions from '../actions';
 
 export default class Header extends React.Component {
   render() {

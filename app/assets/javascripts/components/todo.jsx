@@ -1,6 +1,6 @@
-import React     from 'react';
-import Toggle    from './toggle.jsx';
-import {actions} from '../store';
+import React   from 'react';
+import Toggle  from './toggle.jsx';
+import actions from '../actions';
 
 export default class Todo extends React.Component {
   render() {

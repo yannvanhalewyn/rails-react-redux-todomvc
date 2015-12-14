@@ -1,5 +1,5 @@
-import React from 'react';
-import {actions} from '../store';
+import React   from 'react';
+import actions from '../actions';
 
 var isChecked = (todo) => todo.get('completed');
 var allChecked = (todos) => todos.every(isChecked);

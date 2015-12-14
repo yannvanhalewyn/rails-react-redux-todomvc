@@ -1,15 +1,7 @@
 import { createStore } from 'redux';
-import KeyMirror       from 'keymirror';
 import Immutable       from 'immutable';
 import API             from './api';
-
-var Constants = KeyMirror({
-  ADD_TODO: undefined,
-  DESTROY: undefined,
-  UPDATE_TODO: undefined,
-  TOGGLE: undefined,
-  TOGGLE_ALL: undefined
-});
+import Constants       from './constants';
 
 // Load initial state
 var initialTodos = []
@@ -35,7 +27,7 @@ var todosHandler = (todos, action) => {
       return todos.setIn(path, !todos.getIn(path));
 
     case Constants.DESTROY:
-      API.destroy(state.getIn(['todos', action.idx, 'id']))
+      API.destroy(todos.getIn([action.idx, 'id']))
       return todos.delete(action.idx)
 
     case Constants.TOGGLE_ALL:
@@ -53,12 +45,4 @@ var storeCallback = (state = initialState, action) => {
   return state.update('todos', (todos) => todosHandler(todos, action));
 }
 
-var store = createStore(storeCallback);
-
-export const actions = {
-  add: (text) => store.dispatch({type: Constants.ADD_TODO, text}),
-  destroy: (idx) => store.dispatch({type: Constants.DESTROY, idx}),
-  toggle: (idx) => store.dispatch({type: Constants.TOGGLE, idx}),
-  toggleAll: (checked) => store.dispatch({type: Constants.TOGGLE_ALL, checked})
-}
-export default store;
+export default createStore(storeCallback);
