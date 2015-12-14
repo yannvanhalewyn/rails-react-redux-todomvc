@@ -9,8 +9,8 @@ export default {
     return $.post('api/todos', {title: text});
   },
 
-  update(id) {
-    return $.ajax({url: `api/todos/${id}`, type: 'put'});
+  update(id, data) {
+    return $.ajax({url: `api/todos/${id}`, type: 'put', data});
   },
 
   fetch() {

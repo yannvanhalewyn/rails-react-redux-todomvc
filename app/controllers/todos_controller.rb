@@ -19,7 +19,11 @@ class TodosController < ApplicationController
   end
 
   def update
-    render json: @todo
+    if @todo.update params.permit :title, :completed
+      render json: @todo
+    else
+      render status: 500, json: {error: "Something went wrong."}
+    end
   end
 
   def destroy

@@ -24,8 +24,10 @@ var todosHandler = (todos, action) => {
       return todos.push(newTodo)
 
     case Constants.TOGGLE:
-      var path = [action.idx, 'completed'];
-      return todos.setIn(path, !todos.getIn(path));
+      var completed = !todos.getIn([action.idx, 'completed']);
+      var id = todos.getIn([action.idx, 'id']);
+      API.update(id, {completed}).then((d) => console.log("Succes:", d), (e) => console.log("ERROR:", e));
+      return todos.setIn([action.idx, 'completed'], completed);
 
     case Constants.DESTROY:
       // Will resync if server failed to destroy todo
