@@ -1,5 +1,3 @@
-import store from './store';
-
 export default {
   destroy(id) {
     return $.ajax({url: `api/todos/${id}`, type: 'delete'});
@@ -16,4 +14,4 @@ export default {
   fetch() {
     return $.ajax({url: 'api/todos'});
   }
-}
+};

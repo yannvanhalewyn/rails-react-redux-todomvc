@@ -7,7 +7,12 @@ export default class Header extends React.Component {
     return <header>
         <h1>todos</h1>
         <form onSubmit={this._onSubmit.bind(this)}>
-          <input ref="input" className="new-todo" type="" placeholder="What needs to be done?" />
+          <input
+            ref="input"
+            className="new-todo"
+            type=""
+            placeholder="What needs to be done?"
+          />
         </form>
         <ToggleAll todos={this.props.todos} />
       </header>
@@ -17,7 +22,7 @@ export default class Header extends React.Component {
     e.preventDefault();
     var newText = this.refs.input.value.trim();
     if (newText.length == 0) return;
-    this.refs.input.value = "";
+    this.refs.input.value = '';
     actions.add(newText);
   }
 }

@@ -19,4 +19,4 @@ export const FilterTypes = KeyMirror({
   ALL: undefined,
   COMPLETED: undefined,
   ACTIVE: undefined
-})
+});

@@ -2,11 +2,11 @@ import React from 'react';
 import Filters from './filters.jsx';
 import actions from '../actions';
 
-var itemOrItems = (n) => n == 1 ? "item" : "items";
+var itemOrItems = (n) => n == 1 ? 'item' : 'items';
 
 var countUncompleted = (todos) => {
   return todos.filterNot((t) => t.get('completed')).size;
-}
+};
 
 export default class Footer extends React.Component {
   render() {
@@ -18,8 +18,10 @@ export default class Footer extends React.Component {
           {uncompletedCount} {itemOrItems(uncompletedCount)} left
         </span>
         <Filters filterType={this.props.filterType}/>
-        <button className="clear-completed" onClick={actions.clearCompleted}>Clear Completed</button>
+        <button className="clear-completed" onClick={actions.clearCompleted}>
+          Clear Completed
+        </button>
       </footer>
-    )
+    );
   }
 }

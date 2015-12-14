@@ -1,8 +1,6 @@
-import React      from 'react';
 import App        from './components/app.jsx';
 import { render } from 'react-dom';
 import store      from './store';
-import actions    from './actions';
 
 // Bootstrap the app
 var target = document.getElementById('content');

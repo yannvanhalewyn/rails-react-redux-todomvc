@@ -8,7 +8,7 @@ export default class extends React.Component {
       <li>
         <a
           href="#"
-          className={this.props.filterType == FilterTypes.ALL ? "selected" : ""}
+          className={this.props.filterType == FilterTypes.ALL ? 'selected' : ''}
           onClick={this._onAll.bind(this)} >
           All
         </a>
@@ -16,7 +16,7 @@ export default class extends React.Component {
       <li>
         <a
           href="#"
-          className={this.props.filterType == FilterTypes.ACTIVE ? "selected" : ""}
+          className={this.props.filterType == FilterTypes.ACTIVE ? 'selected' : ''}
           onClick={this._onActive.bind(this)}>
           Active
         </a>
@@ -24,7 +24,8 @@ export default class extends React.Component {
       <li>
         <a
           href="#"
-          className={this.props.filterType == FilterTypes.COMPLETED ? "selected" : ""}
+          className={this.props.filterType == FilterTypes.COMPLETED ?
+                                              'selected' : ''}
           onClick={this._onCompleted.bind(this)} >
           Completed
         </a>
