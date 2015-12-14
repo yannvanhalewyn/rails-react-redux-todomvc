@@ -13,13 +13,15 @@ try {
 }
 var initialState = Immutable.fromJS({todos: initialTodos})
 
+/*
+ * Every switch case will return an optimistic update to the redux store causing
+ * an immediate update in the UI. If the server responds with an error, eg when
+ * the api call's promise fail handler, the data will be refetched and restored!
+ */
 var todosHandler = (todos, action) => {
   switch (action.type) {
     case Constants.ADD_TODO:
-      // Will resync once terminated
       API.create(action.text).then(actions.fetchAllAndSync, actions.fetchAllAndSync);
-
-      // Optimistic update in the meanwhile
       var newTodo = Immutable.Map({title: action.text, completed: false})
       return todos.push(newTodo)
 
@@ -30,12 +32,16 @@ var todosHandler = (todos, action) => {
       return todos.setIn([action.idx, 'completed'], completed);
 
     case Constants.DESTROY:
-      // Will resync if server failed to destroy todo
       API.destroy(todos.getIn([action.idx, 'id'])).fail(actions.fetchAllAndSync)
-      // Optimistic update
       return todos.delete(action.idx)
 
     case Constants.TOGGLE_ALL:
+      todos.forEach((t) => {
+        // Persist to server if needed. Will resync on error
+        if (t.get('completed') != action.checked)
+          API.update(t.get('id'), {completed: action.checked})
+            .fail(actions.fetchAllAndSync)
+      })
       return todos.map((t) => t.set('completed', action.checked))
 
     case Constants.UPDATE:
