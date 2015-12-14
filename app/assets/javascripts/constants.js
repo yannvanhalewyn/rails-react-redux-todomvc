@@ -8,7 +8,10 @@ export const ActionTypes = KeyMirror({
   TOGGLE_ALL: undefined,
 
   // Server
-  FETCHED: undefined
+  FETCHED: undefined,
+
+  // Filter type
+  SET_FILTER_TYPE: undefined
 });
 
 export const FilterTypes = KeyMirror({

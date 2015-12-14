@@ -16,7 +16,7 @@ export default class Footer extends React.Component {
         <span className="todo-count">
           {uncompletedCount} {itemOrItems(uncompletedCount)} left
         </span>
-        <Filters />
+        <Filters filterType={this.props.filterType}/>
       </footer>
     )
   }

@@ -4,7 +4,7 @@ import actions from '../actions';
 var isChecked = (todo) => todo.get('completed');
 var allChecked = (todos) => todos.every(isChecked);
 
-export default class extends React.Component {
+export default class ToggleAll extends React.Component {
   render() {
     if (this.props.todos.isEmpty()) return null;
     return <input

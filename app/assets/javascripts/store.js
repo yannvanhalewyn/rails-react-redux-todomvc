@@ -1,8 +1,8 @@
-import { createStore } from 'redux';
-import Immutable       from 'immutable';
-import API             from './api';
-import {ActionTypes}   from './constants';
-import actions         from './actions';
+import { createStore }            from 'redux';
+import Immutable                  from 'immutable';
+import API                        from './api';
+import {ActionTypes, FilterTypes} from './constants';
+import actions                    from './actions';
 
 // Load initial state
 var initialTodos = []
@@ -11,7 +11,7 @@ try {
 } catch (e) {
   console.error("Error parsing json initial-state");
 }
-var initialState = Immutable.fromJS({todos: initialTodos})
+var initialState = Immutable.fromJS({filterType: FilterTypes.ALL, todos: initialTodos})
 
 /*
  * Every switch case will return an optimistic update to the redux store causing
@@ -60,6 +60,8 @@ var todosHandler = (todos, action) => {
 }
 
 var storeCallback = (state = initialState, action) => {
+  if (action.type == ActionTypes.SET_FILTER_TYPE)
+    return state.set('filterType', action.filterType)
   return state.update('todos', (todos) => todosHandler(todos, action));
 }
 

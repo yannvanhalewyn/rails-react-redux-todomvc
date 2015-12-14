@@ -13,6 +13,11 @@ export default {
   // Server
   fetchAllAndSync: () => {
     return API.fetch().then((data) => store.dispatch({type: ActionTypes.FETCHED, data}))
+  },
+
+  // FilterType
+  setFilterType: (filterType) => {
+    store.dispatch({type: ActionTypes.SET_FILTER_TYPE, filterType})
   }
 }
 
