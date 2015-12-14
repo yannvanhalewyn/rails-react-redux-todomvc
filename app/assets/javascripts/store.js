@@ -1,7 +1,7 @@
 import { createStore } from 'redux';
 import Immutable       from 'immutable';
 import API             from './api';
-import Constants       from './constants';
+import {ActionTypes}   from './constants';
 import actions         from './actions';
 
 // Load initial state
@@ -20,22 +20,22 @@ var initialState = Immutable.fromJS({todos: initialTodos})
  */
 var todosHandler = (todos, action) => {
   switch (action.type) {
-    case Constants.ADD_TODO:
+    case ActionTypes.ADD_TODO:
       API.create(action.text).then(actions.fetchAllAndSync, actions.fetchAllAndSync);
       var newTodo = Immutable.Map({title: action.text, completed: false})
       return todos.push(newTodo)
 
-    case Constants.TOGGLE:
+    case ActionTypes.TOGGLE:
       var completed = !todos.getIn([action.idx, 'completed']);
       var id = todos.getIn([action.idx, 'id']);
       API.update(id, {completed}).fail(actions.fetchAllAndSync);
       return todos.setIn([action.idx, 'completed'], completed);
 
-    case Constants.DESTROY:
+    case ActionTypes.DESTROY:
       API.destroy(todos.getIn([action.idx, 'id'])).fail(actions.fetchAllAndSync)
       return todos.delete(action.idx)
 
-    case Constants.TOGGLE_ALL:
+    case ActionTypes.TOGGLE_ALL:
       todos.forEach((t) => {
         // Persist to server if needed. Will resync on error
         if (t.get('completed') != action.checked)
@@ -44,14 +44,14 @@ var todosHandler = (todos, action) => {
       })
       return todos.map((t) => t.set('completed', action.checked))
 
-    case Constants.UPDATE:
+    case ActionTypes.UPDATE:
       API.update(todos.getIn([action.idx, 'id']), {title: action.text})
         .fail(actions.fetchAllAndSync)
       return todos.setIn([action.idx, 'title'], action.text)
 
     // Primarily used for when error occured and data is
     // refetched from the server
-    case Constants.FETCHED:
+    case ActionTypes.FETCHED:
       return Immutable.fromJS(action.data)
 
     default:

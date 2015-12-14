@@ -1,6 +1,6 @@
 import KeyMirror from 'keymirror';
 
-export default KeyMirror({
+export const ActionTypes = KeyMirror({
   ADD_TODO: undefined,
   DESTROY: undefined,
   UPDATE: undefined,
@@ -10,3 +10,9 @@ export default KeyMirror({
   // Server
   FETCHED: undefined
 });
+
+export const FilterTypes = KeyMirror({
+  ALL: undefined,
+  COMPLETED: undefined,
+  ACTIVE: undefined
+})

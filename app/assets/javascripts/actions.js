@@ -1,18 +1,18 @@
-import store     from './store';
-import Constants from './constants';
-import API       from './api';
+import store         from './store';
+import {ActionTypes} from './constants';
+import API           from './api';
 
 export default {
   // Client
-  add: (text) => store.dispatch({type: Constants.ADD_TODO, text}),
-  destroy: (idx) => store.dispatch({type: Constants.DESTROY, idx}),
-  toggle: (idx) => store.dispatch({type: Constants.TOGGLE, idx}),
-  toggleAll: (checked) => store.dispatch({type: Constants.TOGGLE_ALL, checked}),
-  updateTitle: (idx, text) => store.dispatch({type: Constants.UPDATE, idx, text}),
+  add: (text) => store.dispatch({type: ActionTypes.ADD_TODO, text}),
+  destroy: (idx) => store.dispatch({type: ActionTypes.DESTROY, idx}),
+  toggle: (idx) => store.dispatch({type: ActionTypes.TOGGLE, idx}),
+  toggleAll: (checked) => store.dispatch({type: ActionTypes.TOGGLE_ALL, checked}),
+  updateTitle: (idx, text) => store.dispatch({type: ActionTypes.UPDATE, idx, text}),
 
   // Server
   fetchAllAndSync: () => {
-    return API.fetch().then((data) => store.dispatch({type: Constants.FETCHED, data}))
+    return API.fetch().then((data) => store.dispatch({type: ActionTypes.FETCHED, data}))
   }
 }
 

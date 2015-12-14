@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import Filters from './filters.jsx';
 
 var itemOrItems = (n) => n == 1 ? "item" : "items";
 
@@ -15,6 +16,7 @@ export default class Footer extends React.Component {
         <span className="todo-count">
           {uncompletedCount} {itemOrItems(uncompletedCount)} left
         </span>
+        <Filters />
       </footer>
     )
   }
