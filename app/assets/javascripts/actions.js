@@ -8,6 +8,7 @@ export default {
   destroy: (idx) => store.dispatch({type: Constants.DESTROY, idx}),
   toggle: (idx) => store.dispatch({type: Constants.TOGGLE, idx}),
   toggleAll: (checked) => store.dispatch({type: Constants.TOGGLE_ALL, checked}),
+  updateTitle: (idx, text) => store.dispatch({type: Constants.UPDATE, idx, text}),
 
   // Server
   fetchAllAndSync: () => {

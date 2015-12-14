@@ -26,7 +26,7 @@ var todosHandler = (todos, action) => {
     case Constants.TOGGLE:
       var completed = !todos.getIn([action.idx, 'completed']);
       var id = todos.getIn([action.idx, 'id']);
-      API.update(id, {completed}).then((d) => console.log("Succes:", d), (e) => console.log("ERROR:", e));
+      API.update(id, {completed}).fail(actions.fetchAllAndSync);
       return todos.setIn([action.idx, 'completed'], completed);
 
     case Constants.DESTROY:
@@ -38,6 +38,13 @@ var todosHandler = (todos, action) => {
     case Constants.TOGGLE_ALL:
       return todos.map((t) => t.set('completed', action.checked))
 
+    case Constants.UPDATE:
+      API.update(todos.getIn([action.idx, 'id']), {title: action.text})
+        .fail(actions.fetchAllAndSync)
+      return todos.setIn([action.idx, 'title'], action.text)
+
+    // Primarily used for when error occured and data is
+    // refetched from the server
     case Constants.FETCHED:
       return Immutable.fromJS(action.data)
 
