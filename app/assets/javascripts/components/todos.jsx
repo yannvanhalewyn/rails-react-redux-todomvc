@@ -9,7 +9,7 @@ var shouldNotRender = (todo, filterType) => {
 
 export default class Todos extends React.Component {
   render() {
-    if (this.props.empty) return null;
+    if (this.props.todos.isEmpty()) return null;
     return <section className="main">
       <ul className="todo-list">
         {this.props.todos.map(this._renderTodo.bind(this))}
